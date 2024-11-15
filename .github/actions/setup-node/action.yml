@@ -1,4 +1,5 @@
 name: Setup Node
+description: This action sets up Node.js environment
 runs:
   using: "composite"
   steps:

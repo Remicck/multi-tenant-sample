@@ -1,4 +1,5 @@
 name: Setup DB
+description: This action sets up the database for development or testing
 inputs:
   kind:
     description: dev or test
