@@ -1,10 +1,10 @@
 import { prisma } from "@/app/_clients/prisma";
+import { Button } from "@/app/_components/ui/button";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { Suspense } from "react";
 import { deleteAll } from "./_actions/items";
 import { options } from "./_clients/nextAuth";
-import { Button } from "./_components/Button";
 import { format } from "./_utils/date";
 
 export default async function Page() {
