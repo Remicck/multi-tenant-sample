@@ -1,8 +1,10 @@
 import { prisma } from "@/app/_clients/prisma";
+import { uuidv7 } from "uuidv7";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { create, deleteAll } from "./items";
 
 describe("actions/items", () => {
+  const userId = uuidv7();
   const mock = vi.hoisted(() => ({
     getServerSession: vi.fn(),
     revalidatePath: vi.fn(),
@@ -19,13 +21,13 @@ describe("actions/items", () => {
   beforeEach(async () => {
     mock.getServerSession.mockReturnValue({
       user: {
-        id: "id",
+        id: userId,
       },
     });
 
     await prisma.user.create({
       data: {
-        id: "id",
+        id: userId,
         email: "hello@a.com",
       },
     });
@@ -41,7 +43,7 @@ describe("actions/items", () => {
     test("should create an item", async () => {
       const expected = {
         content: "hello",
-        userId: "id",
+        userId: userId,
       };
 
       expect(
@@ -78,11 +80,11 @@ describe("actions/items", () => {
         data: [
           {
             content: "foo",
-            userId: "id",
+            userId: userId,
           },
           {
             content: "bar",
-            userId: "id",
+            userId: userId,
           },
         ],
       });

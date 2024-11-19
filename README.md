@@ -1,3 +1,5 @@
+[![ci](https://github.com/Remicck/multi-tenant-sample/actions/workflows/ci.yml/badge.svg)](https://github.com/Remicck/multi-tenant-sample/actions/workflows/ci.yml)
+
 ## Setup
 
 **1. Installing Docker Compose**
