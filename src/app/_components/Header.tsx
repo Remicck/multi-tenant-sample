@@ -24,12 +24,7 @@ export async function Header() {
       )}
       <div className="flex gap-4 items-center">
         {session && (
-          <Link
-            href="/create"
-            className="bg-blue-300 py-2 px-4 rounded-md text-gray-800"
-            // https://github.com/shadcn-ui/ui/issues/1355
-            scroll={false}
-          >
+          <Link href="/create" scroll={false}>
             Add an item
           </Link>
         )}

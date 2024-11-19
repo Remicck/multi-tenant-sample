@@ -32,12 +32,7 @@ async function Status() {
       </p>
       {session?.user && (
         <form action={deleteAll}>
-          <Button
-            type="submit"
-            className="py-2 px-4 bg-orange-800 rounded-md text-sm text-gray-100"
-          >
-            Delete my items
-          </Button>
+          <Button type="submit">Delete my items</Button>
         </form>
       )}
     </div>
