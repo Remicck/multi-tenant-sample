@@ -33,7 +33,7 @@ export default function Page() {
     startTransition(async () => {
       try {
         await create(values);
-        router.push("/");
+        router.back();
       } catch (e) {
         if (e instanceof Error) {
           alert(e.message);
