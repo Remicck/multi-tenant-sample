@@ -42,6 +42,35 @@ erDiagram
     }
 
 
+  "tenants" {
+    String id "🗝️"
+    String name
+    DateTime createdAt
+    DateTime updatedAt
+    Boolean isActive
+    String contactEmail "❓"
+    }
+
+
+  "tenant_users" {
+    String id "🗝️"
+    String tenantId
+    String userId
+    String role
+    DateTime joinedAt
+    }
+
+
+  "subscriptions" {
+    String id "🗝️"
+    String plan
+    String status
+    DateTime startedAt
+    DateTime expiresAt "❓"
+    String tenantId
+    }
+
+
   "verificationtokens" {
     String identifier
     String token
@@ -64,5 +93,11 @@ erDiagram
     "users" o{--}o "accounts" : "accounts"
     "users" o{--}o "sessions" : "sessions"
     "users" o{--}o "items" : "items"
+    "users" o{--}o "tenant_users" : "roles"
+    "tenants" o{--}o "subscriptions" : "subscription"
+    "tenants" o{--}o "tenant_users" : "users"
+    "tenant_users" o|--|| "tenants" : "tenant"
+    "tenant_users" o|--|| "users" : "user"
+    "subscriptions" o|--|| "tenants" : "tenant"
     "items" o|--|| "users" : "user"
 ```
