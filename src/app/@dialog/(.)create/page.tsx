@@ -51,7 +51,7 @@ export default function Page() {
           id="content"
           disabled={isPending}
           placeholder="write you memo..."
-          className=" w-full bg-gray-600 text-gray-100 focus:outline-none py-3 px-5 rounded-sm"
+          className=" w-full focus:outline-none py-3 px-5 rounded-sm"
           data-1p-ignore
         />
         {errors.content?.message && (

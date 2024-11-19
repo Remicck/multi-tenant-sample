@@ -17,7 +17,7 @@ export function Dialog({ children }: Props) {
   return (
     <dialog
       ref={ref}
-      className="fixed inset-0 w-[560px] h-[520px] bg-gray-800 rounded-sm border border-gray-500 backdrop:bg-gray-900/70 backdrop:backdrop-blur-sm"
+      className="fixed inset-0 w-[560px] h-[520px] rounded-sm backdrop:bg-gray-900/50 backdrop:backdrop-blur-sm"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           router.back();
@@ -29,7 +29,7 @@ export function Dialog({ children }: Props) {
         }
       }}
     >
-      <div className="text-gray-200 p-10 h-full">{children}</div>
+      <div className=" p-10 h-full">{children}</div>
     </dialog>
   );
 }

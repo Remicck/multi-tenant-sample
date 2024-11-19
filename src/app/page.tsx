@@ -25,7 +25,7 @@ async function Status() {
 
   return (
     <div className="flex justify-between gap-3 flex-col md:flex-row">
-      <p className="text-gray-300">
+      <p>
         {session?.user
           ? `you are signed in as ${session.user.name} 😄`
           : "you are not signed in 🥲"}
@@ -39,7 +39,7 @@ async function Status() {
   );
 }
 
-async function List() {
+export async function List() {
   const data = await prisma.item.findMany({
     include: {
       user: true,
@@ -54,7 +54,7 @@ async function List() {
       {data.map(({ id, content, createdAt, user }) => (
         <li
           key={id}
-          className="border border-gray-600 p-4 flex justify-between items-start rounded-md"
+          className="p-4 flex justify-between items-start rounded-lg bg-slate-100"
         >
           <div className="flex justify-center gap-4 items-center">
             {user.image && (
@@ -74,7 +74,7 @@ async function List() {
               {content}
             </h2>
           </div>
-          <span className="text-sm text-gray-300">{format(createdAt)}</span>
+          <span className="text-sm text-gray-500">{format(createdAt)}</span>
         </li>
       ))}
     </ul>

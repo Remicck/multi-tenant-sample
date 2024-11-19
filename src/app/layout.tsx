@@ -28,7 +28,6 @@ export default function Layout({ dialog, children }: Props) {
       <body
         className={[
           inter.className,
-          "bg-gray-700 text-gray-200 h-screen flex flex-col",
           // for dialog
           "has-[dialog[open]]:overflow-hidden",
         ].join(" ")}

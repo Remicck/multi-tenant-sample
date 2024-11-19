@@ -9,7 +9,7 @@ export async function Header() {
   const session = await getServerSession(options);
 
   return (
-    <header className="px-8 py-3 flex items-center justify-between border-b border-b-gray-600">
+    <header className="px-8 py-3 flex items-center justify-between">
       {session?.user?.image ? (
         <Image
           src={session?.user?.image}
@@ -20,13 +20,18 @@ export async function Header() {
           priority
         />
       ) : (
-        <i className="w-10 h-10 rounded-full bg-gray-600" />
+        <i className="w-10 h-10 rounded-full" />
       )}
       <div className="flex gap-4 items-center">
         {session && (
-          <Link href="/create" scroll={false}>
-            Add an item
-          </Link>
+          <>
+            <Link href="/create" scroll={false}>
+              Add an item
+            </Link>
+            <Link href="/info" scroll={false}>
+              Show information
+            </Link>
+          </>
         )}
         {session ? <SignOutButton /> : <SignInButton />}
       </div>
