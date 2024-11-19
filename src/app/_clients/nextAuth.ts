@@ -31,12 +31,29 @@ export const options: NextAuthOptions = {
     redirect: async ({ url, baseUrl }) => {
       return baseUrl;
     },
-    session: async ({ session, token, user, trigger, newSession }) => {
+    session: async ({ session, user }) => {
       if (session?.user) {
+        // ユーザーIDとロールをセッションに含める
         session.user.id = user.id;
         session.user.role = user.role;
-      }
 
+        // テナント情報を取得してセッションに含める
+        const tenantUsers = await prisma.tenantUser.findMany({
+          where: {
+            userId: user.id,
+          },
+          include: {
+            tenant: true,
+          },
+        });
+
+        // @ts-expect-error
+        session.user.tenants = tenantUsers.map((tu) => ({
+          id: tu.tenant.id,
+          name: tu.tenant.name,
+          role: tu.role,
+        }));
+      }
       return session;
     },
   },
