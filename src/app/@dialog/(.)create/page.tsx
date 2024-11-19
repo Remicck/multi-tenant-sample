@@ -1,6 +1,8 @@
 "use client";
 
 import { create } from "@/app/_actions/items";
+import { Input } from "@/app/_components/ui/input";
+import { Label } from "@/app/_components/ui/label";
 import { type Schema, schema } from "@/app/_schemas/create";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -43,8 +45,8 @@ export default function Page() {
   return (
     <Dialog>
       <form onSubmit={handleSubmit(submit)} className="space-y-4">
-        <label htmlFor="content">New Memo</label>
-        <input
+        <Label htmlFor="content">New Memo</Label>
+        <Input
           {...register("content")}
           id="content"
           disabled={isPending}
