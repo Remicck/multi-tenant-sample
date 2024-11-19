@@ -23,7 +23,7 @@ generator erd {
 // https://next-auth.js.org/v3/adapters/prisma#setup
 model Account {
   id                String   @id @default(cuid())
-  userId            String   @map("user_id")
+  userId            String   @map("user_id") @db.Uuid
   type              String
   provider          String
   providerAccountId String   @map("provider_account_id")
@@ -43,9 +43,9 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
   sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
+  userId       String   @map("user_id") @db.Uuid
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now()) @map("created_at")
@@ -55,7 +55,7 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
@@ -86,10 +86,10 @@ model VerificationToken {
 
 // example model
 model Item {
-  id        String   @id @default(cuid())
+  id        String   @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
   content   String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @map("user_id")
+  userId    String   @map("user_id") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
