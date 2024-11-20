@@ -22,7 +22,7 @@ type Props = PropsWithChildren<{
   dialog: ReactNode;
 }>;
 
-export default function Layout({ dialog, children }: Props) {
+export default async function Layout({ dialog, children }: Props) {
   return (
     <html lang="en">
       <body

@@ -2,6 +2,7 @@ import { prisma } from "@/app/_clients/prisma";
 import { Button } from "@/app/_components/ui/button";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { deleteAll } from "./_actions/items";
 import { options } from "./_clients/nextAuth";
@@ -22,7 +23,9 @@ export default async function Page() {
 
 async function Status() {
   const session = await getServerSession(options);
-
+  if (session && !session?.user.tenants.length) {
+    redirect("/setup");
+  }
   return (
     <div className="flex justify-between gap-3 flex-col md:flex-row">
       <p>
@@ -39,7 +42,7 @@ async function Status() {
   );
 }
 
-export async function List() {
+async function List() {
   const data = await prisma.item.findMany({
     include: {
       user: true,

@@ -22,7 +22,7 @@ export const options: NextAuthOptions = {
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          role: profile.role ?? "user",
+          tenants: [],
         };
       },
     }),
@@ -35,7 +35,6 @@ export const options: NextAuthOptions = {
       if (session?.user) {
         // ユーザーIDとロールをセッションに含める
         session.user.id = user.id;
-        session.user.role = user.role;
 
         // テナント情報を取得してセッションに含める
         const tenantUsers = await prisma.tenantUser.findMany({
@@ -47,7 +46,6 @@ export const options: NextAuthOptions = {
           },
         });
 
-        // @ts-expect-error
         session.user.tenants = tenantUsers.map((tu) => ({
           id: tu.tenant.id,
           name: tu.tenant.name,

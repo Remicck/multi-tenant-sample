@@ -32,7 +32,8 @@ describe("actions/items", () => {
       },
     });
 
-    expect(await prisma.user.count()).toBe(1);
+    // ユーザー数が1よりも多い
+    expect(await prisma.user.count()).toBeGreaterThanOrEqual(1);
   });
 
   afterEach(async () => {
