@@ -1,16 +1,19 @@
 import { resolve } from "node:path";
 import { type FullConfig, chromium } from "@playwright/test";
+import { uuidv7 } from "uuidv7";
 import { prisma } from "../src/app/_clients/prisma";
 import { EMAIL, IMAGE, NAME } from "./constants";
 
 export default async function globalSetup(config: FullConfig) {
   const sessionToken = "session_token";
+  const userId = uuidv7();
 
   await prisma.user.upsert({
     where: {
       email: EMAIL,
     },
     create: {
+      id: userId,
       name: NAME,
       image: IMAGE,
       email: EMAIL,
@@ -33,6 +36,22 @@ export default async function globalSetup(config: FullConfig) {
           token_type: "Bearer",
           scope:
             "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
+        },
+      },
+    },
+    update: {},
+  });
+  await prisma.tenant.upsert({
+    where: {
+      name: "Test Tenant",
+    },
+    create: {
+      name: "Test Tenant",
+      contactEmail: EMAIL,
+      users: {
+        create: {
+          userId,
+          role: "owner",
         },
       },
     },
