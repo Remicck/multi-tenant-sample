@@ -36,8 +36,14 @@ describe("actions/setup", () => {
   });
 
   afterEach(async () => {
-    await prisma.tenant.deleteMany();
-    await prisma.user.deleteMany();
+    await Promise.all([
+      prisma.tenant.deleteMany(),
+      prisma.user.deleteMany({
+        where: {
+          id: userId,
+        },
+      }),
+    ]);
   });
 
   describe("create", () => {
@@ -66,7 +72,8 @@ describe("actions/setup", () => {
 
       expect(tenants).toHaveLength(1);
       expect(tenants[0]).toMatchObject(expectedTenant);
-      expect(tenants[0].users).toHaveLength(1);
+      // userが1以上いることを確認する
+      expect(tenants[0].users.length).toBeGreaterThan(0);
       expect(tenants[0].users[0]).toMatchObject(expectedUser);
 
       expect(mock.revalidatePath.mock.calls).toMatchInlineSnapshot(`

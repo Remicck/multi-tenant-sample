@@ -37,7 +37,14 @@ describe("actions/items", () => {
   });
 
   afterEach(async () => {
-    await Promise.all([prisma.user.deleteMany(), prisma.item.deleteMany()]);
+    await Promise.all([
+      prisma.user.deleteMany({
+        where: {
+          id: userId,
+        },
+      }),
+      prisma.item.deleteMany(),
+    ]);
   });
 
   describe("create", () => {
