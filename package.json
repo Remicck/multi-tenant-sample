@@ -2,7 +2,6 @@
   "name": "multi-tenant-sample",
   "version": "0.0.1",
   "description": "",
-  "type": "module",
   "packageManager": "pnpm@9.11.0",
   "scripts": {
     "setup": "git config --local core.hooksPath .githooks && corepack enable pnpm",
