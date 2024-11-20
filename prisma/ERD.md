@@ -3,10 +3,10 @@ erDiagram
 
   "accounts" {
     String id "🗝️"
-    String user_id 
-    String type 
-    String provider 
-    String provider_account_id 
+    String user_id
+    String type
+    String provider
+    String provider_account_id
     String refresh_token "❓"
     String access_token "❓"
     Int expires_at "❓"
@@ -14,20 +14,20 @@ erDiagram
     String scope "❓"
     String id_token "❓"
     String session_state "❓"
-    DateTime created_at 
-    DateTime updated_at 
+    DateTime created_at
+    DateTime updated_at
     }
-  
+
 
   "sessions" {
     String id "🗝️"
-    String session_token 
-    String user_id 
-    DateTime expires 
-    DateTime created_at 
-    DateTime updated_at 
+    String session_token
+    String user_id
+    DateTime expires
+    DateTime created_at
+    DateTime updated_at
     }
-  
+
 
   "users" {
     String id "🗝️"
@@ -36,58 +36,58 @@ erDiagram
     DateTime email_verified "❓"
     String image "❓"
     String website "❓"
-    DateTime created_at 
-    DateTime updated_at 
+    DateTime created_at
+    DateTime updated_at
     String role "❓"
     }
-  
+
 
   "tenants" {
     String id "🗝️"
-    String name 
-    DateTime createdAt 
-    DateTime updatedAt 
-    Boolean isActive 
+    String name
+    DateTime createdAt
+    DateTime updatedAt
+    Boolean isActive
     String contactEmail "❓"
     }
-  
+
 
   "tenant_users" {
     String id "🗝️"
-    String tenantId 
-    String userId 
-    String role 
-    DateTime joinedAt 
+    String tenantId
+    String userId
+    String role
+    DateTime joinedAt
     }
-  
+
 
   "subscriptions" {
     String id "🗝️"
-    String plan 
-    String status 
-    DateTime startedAt 
+    String plan
+    String status
+    DateTime startedAt
     DateTime expiresAt "❓"
-    String tenantId 
+    String tenantId
     }
-  
+
 
   "verificationtokens" {
-    String identifier 
-    String token 
-    DateTime expires 
-    DateTime created_at 
-    DateTime updated_at 
+    String identifier
+    String token
+    DateTime expires
+    DateTime created_at
+    DateTime updated_at
     }
-  
+
 
   "items" {
     String id "🗝️"
-    String content 
-    String user_id 
-    DateTime created_at 
-    DateTime updated_at 
+    String content
+    String user_id
+    DateTime created_at
+    DateTime updated_at
     }
-  
+
     "accounts" o|--|| "users" : "user"
     "sessions" o|--|| "users" : "user"
     "users" o{--}o "accounts" : "accounts"
