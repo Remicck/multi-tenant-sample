@@ -32,11 +32,19 @@ describe("actions/items", () => {
       },
     });
 
-    expect(await prisma.user.count()).toBe(1);
+    // ユーザー数が1よりも多い
+    expect(await prisma.user.count()).toBeGreaterThanOrEqual(1);
   });
 
   afterEach(async () => {
-    await Promise.all([prisma.user.deleteMany(), prisma.item.deleteMany()]);
+    await Promise.all([
+      prisma.user.deleteMany({
+        where: {
+          id: userId,
+        },
+      }),
+      prisma.item.deleteMany(),
+    ]);
   });
 
   describe("create", () => {

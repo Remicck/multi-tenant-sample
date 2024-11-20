@@ -55,22 +55,61 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
+  id            String       @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String?      @unique
+  emailVerified DateTime?    @map("email_verified")
   image         String?
   website       String?
   accounts      Account[]
   sessions      Session[]
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
   // https://authjs.dev/guides/basics/role-based-access-control
   role          String?
-  // example model
   items         Item[]
+  roles         TenantUser[] // 中間テーブルを通じてテナントとのリレーション
 
   @@map("users")
+}
+
+model Tenant {
+  id           String        @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
+  name         String        @unique // テナント名（会社名など）
+  createdAt    DateTime      @default(now()) // 作成日時
+  updatedAt    DateTime      @updatedAt // 更新日時
+  isActive     Boolean       @default(true) // 有効/無効状態
+  contactEmail String?       @unique // テナント管理者の連絡用メールアドレス
+  subscription Subscription? // サブスクリプション情報（プランや状態）
+  users        TenantUser[] // 中間テーブルを通じてユーザーとのリレーション
+
+  @@map("tenants")
+}
+
+model TenantUser {
+  id       String   @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
+  tenantId String   @db.Uuid // テナントのID
+  userId   String   @db.Uuid // ユーザーのID
+  role     String // このテナントでの役割（例: "admin", "member"）
+  joinedAt DateTime @default(now()) // このテナントに参加した日時
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, userId]) // ユニーク制約: 同じユーザーが同じテナントに重複登録されない
+  @@map("tenant_users") // テーブル名を指定
+}
+
+model Subscription {
+  id        String    @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
+  plan      String    @default("basic") // サブスクリプションプラン（例: "basic", "pro", "enterprise"）
+  status    String // サブスクリプションの状態（例: "active", "canceled", "trialing"）
+  startedAt DateTime // サブスクリプションの開始日時
+  expiresAt DateTime? // サブスクリプションの終了日時（nullなら無期限）
+  tenantId  String    @unique @db.Uuid // テナントのID
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@map("subscriptions")
 }
 
 model VerificationToken {
