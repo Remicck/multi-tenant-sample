@@ -32,3 +32,15 @@ services:
       - "4317:4317" # OTLP gRPC receiver
     depends_on:
       - jaeger
+  sendgrid-maildev:
+    image: ykanazawa/sendgrid-maildev
+    hostname: sendgrid-maildev
+    environment:
+      - SENDGRID_DEV_API_SERVER=:3030
+      - SENDGRID_DEV_API_KEY=SG.xxxxx
+      - SENDGRID_DEV_SMTP_SERVER=127.0.0.1:1025
+    container_name: sendgrid-maildev
+    ports:
+      - 1025:1025
+      - 1080:1080
+      - 3030:3030
