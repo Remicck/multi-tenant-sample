@@ -5,6 +5,8 @@ import { prisma } from "@/app/_clients/prisma";
 import { type Schema, schema } from "@/app/_schemas/create";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import sendGridMail from "@sendgrid/mail";
+import sendGridClient from "@sendgrid/client";
 
 export async function create(data: Schema) {
   const validatedFields = schema.safeParse(data);
@@ -33,6 +35,32 @@ export async function create(data: Schema) {
 
     return res;
   });
+
+  // mailを送信する
+  try {
+    const msg = {
+      to: "test@example.com",
+      from: "test@example.com", // Use the email address or domain you verified above
+      subject: "Sending with Twilio SendGrid is Fun",
+      text: `item is : ${validatedFields.data.content}`,
+      html: `<strong>item is : ${validatedFields.data.content}</strong>`,
+    };
+
+    sendGridClient.setApiKey(process.env.SENDGRID_API_KEY as string);
+    sendGridClient.setDefaultRequest(
+      "baseUrl",
+      process.env.SENDGRID_API_HOST as string,
+    );
+    sendGridMail.setClient(sendGridClient);
+
+    await sendGridMail.send(msg);
+  } catch (error) {
+    console.error(error);
+
+    if (error) {
+      console.error(error);
+    }
+  }
 
   revalidatePath("/");
 
