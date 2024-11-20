@@ -105,3 +105,14 @@ open http://localhost:16686/
 ### Server
 
 Please add a url to `process.env.TRACE_EXPORTER_URL`.
+
+## Email
+
+Mocking SendGrid API with MailDev for Development
+During development, you can use the [ykanazawa/sendgrid\-maildev \- Docker Image \| Docker Hub](https://hub.docker.com/r/ykanazawa/sendgrid-maildev) to mock the SendGrid API. This setup provides the following benefits:
+
+Mock Server for SendGrid API: Easily simulate email sending without sending real emails.
+MailDev Integration: View and verify the results of SendGrid API requests in a mock mailbox through the MailDev interface.
+This combination allows seamless email-related development and debugging without affecting production email workflows.
+
+You can access the mock mailbox at [http://localhost:1080](http://localhost:1080), making it simple to debug and validate email functionality during development.
