@@ -3,10 +3,10 @@
 import { options } from "@/app/_clients/nextAuth";
 import { prisma } from "@/app/_clients/prisma";
 import { type Schema, schema } from "@/app/_schemas/create";
+import sendGridClient from "@sendgrid/client";
+import sendGridMail from "@sendgrid/mail";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-import sendGridMail from "@sendgrid/mail";
-import sendGridClient from "@sendgrid/client";
 
 export async function create(data: Schema) {
   const validatedFields = schema.safeParse(data);
