@@ -56,5 +56,6 @@ export class Base {
     await this.page.getByLabel("New Memo").fill(content);
     await this.page.keyboard.press("Enter");
     await this.page.waitForLoadState("networkidle");
+    await this.page.waitForTimeout(500);
   }
 }

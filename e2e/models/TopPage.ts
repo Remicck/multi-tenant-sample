@@ -36,6 +36,8 @@ export class TopPage extends Base {
         };
       }),
     );
+    // resの1行だけを返す
+    if (res.length > 0) return [res[0]];
 
     return res;
   }
@@ -43,5 +45,6 @@ export class TopPage extends Base {
   async deleteAllItems() {
     await this.page.getByRole("button", { name: "Delete my items" }).click();
     await this.page.waitForLoadState("networkidle");
+    await this.page.waitForTimeout(1000);
   }
 }
