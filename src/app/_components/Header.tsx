@@ -7,7 +7,6 @@ import { SignOutButton } from "./SignOutButton";
 
 export async function Header() {
   const session = await getServerSession(options);
-  console.log(session);
 
   return (
     <header className="px-8 py-3 flex items-center justify-between">
