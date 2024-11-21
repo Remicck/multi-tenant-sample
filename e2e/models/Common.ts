@@ -16,14 +16,18 @@ export class Base {
 
   async expectHeaderUI(state: "signIn" | "signOut") {
     if (state === "signIn") {
-      await expect(
-        this.page.getByRole("button", { name: "Sign out" }),
-      ).toBeVisible();
+      // ユーザー情報を開く
+      await this.page.click('[data-sidebar="footer"]');
+      await expect(this.page.getByText("Log out")).toBeVisible();
       expect(
         await this.page
           .getByRole("img", { name: "e2e-test" })
           .getAttribute("src"),
       ).toBe(IMAGE);
+
+      // ユーザー情報を閉じる
+      await this.page.getByText("Billing").click();
+
       expect(
         await this.page
           .getByRole("link", { name: "Add an item" })
@@ -52,6 +56,5 @@ export class Base {
     await this.page.getByLabel("New Memo").fill(content);
     await this.page.keyboard.press("Enter");
     await this.page.waitForLoadState("networkidle");
-    await this.page.goto("/");
   }
 }

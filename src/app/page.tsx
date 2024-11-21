@@ -27,12 +27,7 @@ async function Status() {
     redirect("/setup");
   }
   return (
-    <div className="flex justify-between gap-3 flex-col md:flex-row">
-      <p>
-        {session?.user
-          ? `you are signed in as ${session.user.name} 😄`
-          : "you are not signed in 🥲"}
-      </p>
+    <div className="flex justify-end gap-3 flex-col md:flex-row">
       {session?.user && (
         <form action={deleteAll}>
           <Button type="submit">Delete my items</Button>
@@ -44,6 +39,7 @@ async function Status() {
 
 async function List() {
   const session = await getServerSession(options);
+  console.log("session", session);
   const data = !session
     ? []
     : await prisma.item.findMany({

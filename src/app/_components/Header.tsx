@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { options } from "../_clients/nextAuth";
 import { SignInButton } from "./SignInButton";
-import { SignOutButton } from "./SignOutButton";
 
 export async function Header() {
   const session = await getServerSession(options);
@@ -28,7 +27,7 @@ export async function Header() {
             Add an item
           </Link>
         )}
-        {session ? <SignOutButton /> : <SignInButton />}
+        {!session && <SignInButton />}
       </div>
     </header>
   );

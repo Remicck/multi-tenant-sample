@@ -25,7 +25,6 @@ test("should create an item and then delete all items", async ({ page }) => {
   ]);
 
   await topPage.deleteAllItems();
-
   expect(await topPage.getItems()).toMatchObject([]);
 });
 

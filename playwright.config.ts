@@ -5,6 +5,7 @@ export default defineConfig({
   globalSetup: "./e2e/globalSetup.ts",
   globalTeardown: "./e2e/globalTeardown.ts",
   fullyParallel: true,
+  timeout: 10000,
   use: {
     baseURL: process.env.NEXT_PUBLIC_SITE_URL,
     storageState: "./e2e/storageState.json",
