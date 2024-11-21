@@ -10,7 +10,7 @@ export const options: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
-  // @ts-expect-error https://github.com/nextauthjs/next-auth/issues/9493
+  // https://github.com/nextauthjs/next-auth/issues/9493
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -22,7 +22,6 @@ export const options: NextAuthOptions = {
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          tenants: [],
         };
       },
     }),
