@@ -23,7 +23,7 @@ export default async function Page() {
 
 async function Status() {
   const session = await getServerSession(options);
-  if (session && !session?.user.tenants.length) {
+  if (session && !session?.user.tenants?.length) {
     redirect("/setup");
   }
   return (
