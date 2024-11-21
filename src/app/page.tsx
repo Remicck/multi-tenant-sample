@@ -23,16 +23,11 @@ export default async function Page() {
 
 async function Status() {
   const session = await getServerSession(options);
-  if (session && !session?.user.tenants.length) {
+  if (session && !session?.user.tenants?.length) {
     redirect("/setup");
   }
   return (
-    <div className="flex justify-between gap-3 flex-col md:flex-row">
-      <p>
-        {session?.user
-          ? `you are signed in as ${session.user.name} 😄`
-          : "you are not signed in 🥲"}
-      </p>
+    <div className="flex justify-end gap-3 flex-col md:flex-row">
       {session?.user && (
         <form action={deleteAll}>
           <Button type="submit">Delete my items</Button>
@@ -43,14 +38,21 @@ async function Status() {
 }
 
 async function List() {
-  const data = await prisma.item.findMany({
-    include: {
-      user: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const session = await getServerSession(options);
+  console.log("session", session);
+  const data = !session
+    ? []
+    : await prisma.item.findMany({
+        where: {
+          userId: session?.user.id,
+        },
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
   return (
     <ul className="space-y-4" aria-label="items">

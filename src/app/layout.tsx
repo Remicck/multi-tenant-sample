@@ -4,6 +4,7 @@ import type { PropsWithChildren, ReactNode } from "react";
 import { Footer } from "./_components/Footer";
 import { Header } from "./_components/Header";
 import "./globals.css";
+import { options } from "@/app/_clients/nextAuth";
 import { AppSidebar } from "@/app/_components/app-sidebar";
 import {
   Breadcrumb,
@@ -19,6 +20,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/app/_components/ui/sidebar";
+import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +40,8 @@ type Props = PropsWithChildren<{
 }>;
 
 export default async function Layout({ dialog, children }: Props) {
+  const user = await getServerSession(options);
+
   return (
     <html lang="en">
       <body
@@ -48,7 +52,7 @@ export default async function Layout({ dialog, children }: Props) {
         ].join(" ")}
       >
         <SidebarProvider>
-          <AppSidebar />
+          <AppSidebar user={user?.user} />
           <SidebarInset>
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 px-4">
@@ -78,7 +82,6 @@ export default async function Layout({ dialog, children }: Props) {
             </div>
           </SidebarInset>
         </SidebarProvider>
-
         {dialog}
       </body>
     </html>
