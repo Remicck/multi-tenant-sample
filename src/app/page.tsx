@@ -43,14 +43,20 @@ async function Status() {
 }
 
 async function List() {
-  const data = await prisma.item.findMany({
-    include: {
-      user: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const session = await getServerSession(options);
+  const data = !session
+    ? []
+    : await prisma.item.findMany({
+        where: {
+          userId: session?.user.id,
+        },
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
   return (
     <ul className="space-y-4" aria-label="items">
