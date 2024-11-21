@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - package.json
+      - pnpm-lock.yaml
       - src/**
       - e2e/**
       - .github/workflows/ci.yml
