@@ -5,6 +5,7 @@
     ":semanticCommitTypeAll(chore)",
     ":enableVulnerabilityAlerts",
     ":separateMajorReleases",
+    ":disableDependencyDashboard",
     "group:definitelyTyped",
     "group:monorepos",
     "group:test"
