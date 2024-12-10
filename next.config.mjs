@@ -8,9 +8,7 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    instrumentationHook: true,
-  },
+  experimental: {},
   webpack: (config, { isServer }) => {
     if (isServer) {
       // https://github.com/open-telemetry/opentelemetry-js/issues/4173
