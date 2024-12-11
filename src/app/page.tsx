@@ -39,7 +39,6 @@ async function Status() {
 
 async function List() {
   const session = await getServerSession(options);
-  console.log("session", session);
   const data = !session
     ? []
     : await prisma.item.findMany({
