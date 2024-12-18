@@ -19,6 +19,7 @@ import {
   SidebarTrigger,
 } from "@/app/_components/ui/sidebar";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 type Props = PropsWithChildren<{
   dialog: ReactNode;
@@ -26,6 +27,10 @@ type Props = PropsWithChildren<{
 
 export default async function Layout({ dialog, children }: Props) {
   const user = await getServerSession(options);
+  // もし user が null ならば、ログインページにリダイレクトする
+  if (!user) {
+    redirect("/auth/signin");
+  }
 
   return (
     <>
