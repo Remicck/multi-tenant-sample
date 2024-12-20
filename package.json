@@ -55,7 +55,7 @@
     "@sendgrid/mail": "8.1.4",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "lucide-react": "0.468.0",
+    "lucide-react": "0.469.0",
     "next": "15.1.2",
     "next-auth": "4.24.11",
     "react": "19.0.0",
