@@ -60,7 +60,7 @@
     "next-auth": "4.24.11",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-hook-form": "7.54.1",
+    "react-hook-form": "7.54.2",
     "tailwind-merge": "2.5.5",
     "tailwindcss-animate": "1.0.7",
     "uuidv7": "1.0.2",
