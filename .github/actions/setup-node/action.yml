@@ -3,7 +3,7 @@ description: This action sets up Node.js environment
 runs:
   using: "composite"
   steps:
-    - uses: pnpm/action-setup@v2
+    - uses: pnpm/action-setup@v4
       with:
         version: 10
     - uses: actions/setup-node@v4
