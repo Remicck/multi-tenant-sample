@@ -3,10 +3,10 @@ description: This action sets up Node.js environment
 runs:
   using: "composite"
   steps:
-    - uses: pnpm/action-setup@v2
+    - uses: pnpm/action-setup@v2.4.1
       with:
-        version: 8
-    - uses: actions/setup-node@v4
+        version: 8.15.9
+    - uses: actions/setup-node@v4.4.0
       with:
         node-version-file: ".node-version"
         cache: pnpm

@@ -24,18 +24,18 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
       - uses: ./.github/actions/setup-node
       - run: pnpm lint
       - run: npx biome check . && npx prettier --check './**/*.{md,yml}'
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
       - uses: ./.github/actions/setup-node
       - uses: ./.github/actions/setup-db
       - run: pnpm build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4.6.2
         with:
           name: app
           path: .next
@@ -48,7 +48,7 @@ jobs:
       NEXTAUTH_SECRET: UfxvOS6HetHOFkL44YTITYgc0DOuOlz5TBp3jkbnZ3w=
       NEXT_PUBLIC_SITE_URL: http://localhost:3000
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
       - uses: ./.github/actions/setup-node
       - uses: ./.github/actions/setup-db
       - run: |
@@ -69,7 +69,7 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
       - uses: ./.github/actions/setup-node
       - uses: ./.github/actions/setup-db
         with:
@@ -81,13 +81,13 @@ jobs:
     env:
       NEXTAUTH_SECRET: UfxvOS6HetHOFkL44YTITYgc0DOuOlz5TBp3jkbnZ3w=
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
       - uses: ./.github/actions/setup-node
       - run: pnpm exec playwright install chromium
       - uses: ./.github/actions/setup-db
         with:
           kind: test
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4.3.0
         with:
           name: app
           path: .next
